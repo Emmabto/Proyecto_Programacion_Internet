@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MascotaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,3 +16,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::resource('mascota', MascotaController::class)->parameters(['mascota' => 'mascota']);

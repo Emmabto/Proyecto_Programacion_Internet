@@ -40,8 +40,8 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href=" " class="nav-item nav-link">Home</a>
-                <a href=" " class="nav-item nav-link">Registrar Mascotas</a>
-                <a href=" " class="nav-item nav-link">Mostrar Mascota</a>
+                <a href="{{ route('mascota.create')}}" class="nav-item nav-link">Registrar Mascotas</a>
+                <a href="{{ route('mascota.index')}}" class="nav-item nav-link">Mostrar Mascota</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu fade-down m-0">
@@ -52,7 +52,7 @@
                 </div>
                 <a href=" " class="nav-item nav-link">Contact</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">INICIA SESIÓN<i
+            <a href="{{ route('register')}}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">REGISTRATE<i
                     class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>

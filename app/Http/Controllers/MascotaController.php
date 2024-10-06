@@ -15,7 +15,6 @@ class MascotaController extends Controller
         $mascotas = Mascota::all();
         return view('mascotas.index-mascota', compact('mascotas'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -23,7 +22,6 @@ class MascotaController extends Controller
     {
         return view('mascotas.create-mascota');
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -40,7 +38,6 @@ class MascotaController extends Controller
         $mascota = Mascota::create($request->all());
         return redirect()->route('mascota.index');
     }
-
     /**
      * Display the specified resource.
      */
@@ -48,7 +45,6 @@ class MascotaController extends Controller
     {
         return view('mascotas.show-mascota', compact('mascota'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -56,24 +52,20 @@ class MascotaController extends Controller
     {
         return view('mascotas.edit-mascota', compact('mascota'));
     }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Mascota $mascota)
     {
         $mascota->update($request->all());
-
         return redirect()->route('mascota.show', $mascota);
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Mascota $mascota)
     {
         $mascota->delete();
-
         return redirect()->route('mascota.index');
     }
 }

@@ -102,12 +102,16 @@
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre:</label>
                             <input type="text" name="nombre" id="nombre" class="form-control"
-                                value="{{ old('nombre') }}" placeholder="Ingresa el nombre">
+                                value="{{ old('nombre') }}" placeholder="Ingresa el nombre" >
+                            @error('nombre')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="tipo" class="form-label">Tipo de animal:</label>
                             <select name="tipo" id="tipo" class="form-select">
+                                <option value="" disabled selected>Seleccione un tipo</option>
                                 <option value="Perro">Perro</option>
                                 <option value="Gato">Gato</option>
                                 <option value="Raton">Ratón</option>
@@ -116,6 +120,9 @@
                                 <option value="Tortuga">Tortuga</option>
                                 <option value="Pez">Pez</option>
                             </select>
+                            @error('tipo')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
@@ -130,24 +137,36 @@
                                     old('sexo')=='Hembra' ? 'checked' : '' }}>
                                 <label for="hembra" class="form-check-label">Hembra</label>
                             </div>
+                            @error('sexo')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="edad" class="form-label">Edad:</label>
                             <input type="text" name="edad" id="edad" class="form-control" value="{{ old('edad') }}"
                                 placeholder="Ingresa la edad">
+                            @error('edad')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="vacunas" class="form-label">Vacunas:</label>
                             <textarea name="vacunas" id="vacunas" class="form-control" cols="30" rows="3"
                                 placeholder="Lista de vacunas">{{ old('vacunas') }}</textarea>
+                            @error('vacunas')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label for="padecimientos" class="form-label">Padecimientos:</label>
                             <textarea name="padecimientos" id="padecimientos" class="form-control" cols="30" rows="3"
                                 placeholder="Lista de padecimientos">{{ old('padecimientos') }}</textarea>
+                            @error('padecimientos')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="d-grid">

@@ -83,6 +83,9 @@
                                 <label for="nombre" class="form-label">Nombre:</label>
                                 <input type="text" name="nombre" id="nombre" class="form-control"
                                     value="{{ old('nombre') ?? $mascota->nombre }}">
+                                @error('nombre')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
@@ -96,6 +99,9 @@
                                     <option value="Tortuga" @selected($mascota->tipo == 'Tortuga')>Tortuga</option>
                                     <option value="Pez" @selected($mascota->tipo == 'Pez')>Pez</option>
                                 </select>
+                                @error('tipo')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
@@ -108,22 +114,34 @@
                                     <input class="form-check-input" type="radio" id="hembra" name="sexo" value="Hembra" @checked($mascota->sexo == 'Hembra')>
                                     <label class="form-check-label" for="hembra">Hembra</label>
                                 </div>
+                                @error('sexo')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label for="edad" class="form-label">Edad:</label>
                                 <input type="text" name="edad" id="edad" class="form-control"
                                     value="{{ old('edad') ?? $mascota->edad }}">
+                                @error('edad')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label for="vacunas" class="form-label">Vacunas:</label>
                                 <textarea name="vacunas" id="vacunas" class="form-control" cols="30" rows="4">{{ old('vacunas') ?? $mascota->vacunas }}</textarea>
+                                @error('vacunas')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label for="padecimientos" class="form-label">Padecimientos:</label>
                                 <textarea name="padecimientos" id="padecimientos" class="form-control" cols="30" rows="4">{{ old('padecimientos') ?? $mascota->padecimientos }}</textarea>
+                                @error('padecimientos')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <button type="submit" class="btn btn-primary">Actualizar</button>

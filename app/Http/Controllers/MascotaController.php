@@ -57,6 +57,15 @@ class MascotaController extends Controller
      */
     public function update(Request $request, Mascota $mascota)
     {
+        $validatedData = $request->validate([
+            'nombre' => 'required|string',
+            'tipo' => 'required|string|in:Perro,Gato,Raton,Huron,Reptil,Tortuga,Pez',
+            'sexo' => 'required|string|in:Macho,Hembra',
+            'edad' => 'required|string|min:0',
+            'vacunas' => 'required|string',
+            'padecimientos' => 'required|string',
+        ]);
+
         $mascota->update($request->all());
         return redirect()->route('mascota.show', $mascota);
     }

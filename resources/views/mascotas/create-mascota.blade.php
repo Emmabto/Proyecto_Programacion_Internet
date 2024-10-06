@@ -23,7 +23,6 @@
             <option value="Raton">Ratón</option>
             <option value="Huron">Hurón</option>
             <option value="Reptil">Reptil</option>
-            <option value="Tortuga">Tortuga</option>
             <option value="Pez">Pez</option>
         </select>
        

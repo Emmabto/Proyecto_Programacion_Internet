@@ -22,7 +22,6 @@
             <option value="Raton" @selected($mascota->tipo == 'Raton')>Ratón</option>
             <option value="Huron" @selected($mascota->tipo == 'Huron')>Hurón</option>
             <option value="Reptil" @selected($mascota->tipo == 'Reptil')>Reptil</option>
-            <option value="Tortuga" @selected($mascota->tipo == 'Tortuga')>Tortuga</option>
             <option value="Pez" @selected($mascota->tipo == 'Pez')>Pez</option>
         </select>
 

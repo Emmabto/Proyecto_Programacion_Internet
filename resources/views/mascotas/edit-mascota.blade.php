@@ -1,16 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar registro de Mascotas</title>
-</head>
-<body>
-    <h1>Editar Mascota</h1>
+<x-layout>
+    @section('title', 'Editar Mascota')
 
-    <form action="{{ route('mascota.update') }}" method="POST">
-        @csrf
-        @method('PATCH')
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Editar Mascota</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Editar Mascota Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="bg-light rounded p-4 shadow">
+                        <form action="{{ route('mascota.update',  $mascota) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
 
         <label for="nombre">Nombre:</label><br>
         <input type="text" name="nombre" id="nombre" value="{{ old('nombre') ?? $mascota->nombre }}"><br>
@@ -35,17 +46,38 @@
         <label for="hembra">Hembra</label>
         <input type="radio" id="hembra" name="sexo" value="{{old('hembra') ?? $mascota->sexo }}"><br>
 
-        <label for="edad">Edad:</label><br>
-        <input type="text" name="edad" id="edad" value="{{ old('edad') ?? $mascota->edad }}"><br>
+                            <div class="mb-3">
+                                <label for="edad" class="form-label">Edad:</label>
+                                <input type="text" name="edad" id="edad" class="form-control"
+                                    value="{{ old('edad') ?? $mascota->edad }}">
+                                @error('edad')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-        <label for="vacunas">Vacunas:</label><br>
-        <textarea name="vacunas" id="vacunas" cols="30" rows="4">{{ old('vacunas') ?? $mascota->vacunas }}</textarea><br>
+                            <div class="mb-3">
+                                <label for="vacunas" class="form-label">Vacunas:</label>
+                                <textarea name="vacunas" id="vacunas" class="form-control" cols="30" rows="4">{{ old('vacunas') ?? $mascota->vacunas }}</textarea>
+                                @error('vacunas')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-        <label for="padecimientos">Padecimientos:</label><br>
-        <textarea name="padecimientos" id="padecimientos" cols="30" rows="4">{{ old('padecimientos') ?? $mascota->padecimientos }}</textarea><br>
+                            <div class="mb-3">
+                                <label for="padecimientos" class="form-label">Padecimientos:</label>
+                                <textarea name="padecimientos" id="padecimientos" class="form-control" cols="30" rows="4">{{ old('padecimientos') ?? $mascota->padecimientos }}</textarea>
+                                @error('padecimientos')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-        <input type="submit" value="Enviar">
-    </form>
-    
-</body>
-</html>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Editar Mascota End -->
+
+</x-layout>

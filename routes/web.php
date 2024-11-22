@@ -3,7 +3,7 @@
 use App\Http\Controllers\MascotaController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('home');
 })->name('home');
 
@@ -17,4 +17,5 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::resource('mascota', MascotaController::class)->parameters(['mascota' => 'mascota']);
+Route::resource('mascota', MascotaController::class)->parameters(['mascota' => 'mascota'])->middleware('auth');
+

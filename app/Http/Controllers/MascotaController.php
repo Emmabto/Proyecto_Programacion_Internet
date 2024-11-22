@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Mascota;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 
-class MascotaController extends Controller
+class MascotaController extends Controller implements HasMiddleware
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth', except: ['index', 'show']),
+        ];
+    }
+    
     public function index()
     {
         $mascotas = Mascota::all();
@@ -35,6 +42,13 @@ class MascotaController extends Controller
             'vacunas' => ['required'],
             'padecimientos' => ['required'],
         ]);
+
+        $request->merge([
+            'user_id' => Auth::id(),
+        ]);
+
+        //Auth::user()->mascotas()->create($request->all());
+
         $mascota = Mascota::create($request->all());
         return redirect()->route('mascota.index');
     }

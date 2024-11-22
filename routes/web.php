@@ -18,4 +18,4 @@ Route::middleware([
 });
 
 Route::resource('mascota', MascotaController::class)->parameters(['mascota' => 'mascota'])->middleware('auth');
-//Route::resource('mascota', MascotaController::class)->parameters(['mascota' => 'mascota']); Por ver si se mantiene así
+

@@ -29,6 +29,7 @@
                                     <th>Edad</th>
                                     <th>Vacunas</th>
                                     <th>Padecimientos</th>
+                                    <th>Usuario</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,6 +46,7 @@
                                     <td>{{ $mascota->edad }}</td>
                                     <td>{{ $mascota->vacunas }}</td>
                                     <td>{{ $mascota->padecimientos }}</td>
+                                    <td>{{ $mascota->user->name }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -8,5 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Mascota extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'tipo', 'sexo', 'edad', 'vacunas', 'padecimientos'];
+    protected $fillable = ['user_id', 'nombre', 'tipo', 'sexo', 'edad', 'padecimientos'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function vacunas()
+    {
+        return $this->belongsToMany(Vacuna::class);
+    }
 }

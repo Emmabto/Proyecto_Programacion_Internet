@@ -15,7 +15,7 @@
 
     <!-- Editar Mascota Start -->
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container">
+        <div class="container text-center">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="bg-light rounded p-4 shadow">
@@ -23,26 +23,46 @@
                             @csrf
                             @method('PATCH')
 
-        <label for="nombre">Nombre:</label><br>
-        <input type="text" name="nombre" id="nombre" value="{{ old('nombre') ?? $mascota->nombre }}"><br>
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre') ?? $mascota->nombre }}">
+                                @error('nombre')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">Tipo de animal:</label>
+                                <select name="tipo" id="tipo" class="form-select">
+                                    <option value="Perro" @selected($mascota->tipo == 'Perro')>Perro</option>
+                                    <option value="Gato" @selected($mascota->tipo == 'Gato')>Gato</option>
+                                    <option value="Raton" @selected($mascota->tipo == 'Raton')>Ratón</option>
+                                    <option value="Huron" @selected($mascota->tipo == 'Huron')>Hurón</option>
+                                    <option value="Reptil" @selected($mascota->tipo == 'Reptil')>Reptil</option>
+                                    <option value="Pez" @selected($mascota->tipo == 'Pez')>Pez</option>
+                                </select>
+                                @error('tipo')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-        <label for="tipo">Tipo de animal:</label><br>
-        <select name="tipo" id="tipo">
-            <option value="Perro" @selected($mascota->tipo == 'Perro')>Perro</option>
-            <option value="Gato" @selected($mascota->tipo == 'Gato')>Gato</option>
-            <option value="Raton" @selected($mascota->tipo == 'Raton')>Ratón</option>
-            <option value="Huron" @selected($mascota->tipo == 'Huron')>Hurón</option>
-            <option value="Reptil" @selected($mascota->tipo == 'Reptil')>Reptil</option>
-            <option value="Pez" @selected($mascota->tipo == 'Pez')>Pez</option>
-        </select>
-
-        <label for="sexo">Sexo:</label><br> 
-
-        <label for="macho">Macho</label>
-        <input type="radio" id="macho" name="sexo" value="{{old('macho') ?? $mascota->sexo }}"><br>
-
-        <label for="hembra">Hembra</label>
-        <input type="radio" id="hembra" name="sexo" value="{{old('hembra') ?? $mascota->sexo }}"><br>
+                            <div class="mb-3">
+                                <label class="form-label" for="sexo">Sexo:</label><br> 
+                                <div class="form-check form-check-inline">
+                                <input type="radio" id="macho" name="sexo" class="form-check-input" value="Macho" 
+                                    {{ old('sexo', $mascota->sexo) == 'Macho' ? 'checked' : '' }}>
+                                <label for="macho" class="form-check-label">Macho</label>
+                                </div>
+                                
+                                <div class="form-check form-check-inline">
+                                <input type="radio" id="hembra" name="sexo" class="form-check-input" value="Hembra" 
+                                    {{ old('sexo', $mascota->sexo) == 'Hembra' ? 'checked' : '' }}>
+                                <label for="hembra" class="form-check-label">Hembra</label>
+                                </div>
+                                @error('sexo')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                             <div class="mb-3">
                                 <label for="edad" class="form-label">Edad:</label>

@@ -41,8 +41,6 @@
         <label for="macho">Macho</label>
         <input type="radio" id="macho" name="sexo" value="{{old('macho') ?? $mascota->sexo }}"><br>
 
-        <!-- no se si en los radiobutton también se ponga ?? $mascota->nombre  -->
-
         <label for="hembra">Hembra</label>
         <input type="radio" id="hembra" name="sexo" value="{{old('hembra') ?? $mascota->sexo }}"><br>
 
@@ -59,7 +57,7 @@
                                 <label for="vacunas" class="form-label">Vacunas:</label>
                                 <select name="vacunas[]" id="vacunas" class="form-select" multiple>
                                 @foreach ($vacunas as $vacunas)
-                                <option value="{{ $vacunas->id }}">
+                                <option @selected(in_array($vacunas->id, $mascota->vacunas()->pluck('vacunas.id')->toArray())) value="{{ $vacunas->id }}">
                                     {{ $vacunas->vacunas }}
                                 </option>
                                 @endforeach

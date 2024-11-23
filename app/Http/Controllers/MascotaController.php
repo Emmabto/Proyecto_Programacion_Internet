@@ -68,7 +68,8 @@ class MascotaController extends Controller implements HasMiddleware
      */
     public function edit(Mascota $mascota)
     {
-        return view('mascotas.edit-mascota', compact('mascota'));
+        $vacunas = Vacuna::all();
+        return view('mascotas.edit-mascota', compact('mascota', 'vacunas'));
     }
     /**
      * Update the specified resource in storage.
@@ -80,11 +81,12 @@ class MascotaController extends Controller implements HasMiddleware
             'tipo' => 'required|string|in:Perro,Gato,Raton,Huron,Reptil,Tortuga,Pez',
             'sexo' => 'required|string|in:Macho,Hembra',
             'edad' => 'required|string|min:0',
-            'vacunas' => 'required|string',
+            'vacunas' => 'required|array',
             'padecimientos' => 'required|string',
         ]);
 
         $mascota->update($request->all());
+        $mascota->vacunas()->sync($request->vacunas);
         return redirect()->route('mascota.show', $mascota);
     }
     /**

@@ -24,7 +24,10 @@
                         <p><strong>Tipo de animal:</strong> {{ $mascota->tipo }}</p>
                         <p><strong>Sexo:</strong> {{ $mascota->sexo }}</p>
                         <p><strong>Edad:</strong> {{ $mascota->edad }} años</p>
-                        <p><strong>Vacunas:</strong> {{ $mascota->vacunas }}</p>
+                        <p><strong>Vacunas:</strong> 
+                            @foreach($mascota->vacunas as $vacunas)
+                                {{ $vacunas->vacunas }},
+                            @endforeach</p>
                         <p><strong>Padecimientos:</strong> {{ $mascota->padecimientos }}</p>
                         <div class="d-flex justify-content-center mt-4">
                             <a href="{{ route('mascota.edit', $mascota) }}" class="btn btn-warning me-2">Editar</a>

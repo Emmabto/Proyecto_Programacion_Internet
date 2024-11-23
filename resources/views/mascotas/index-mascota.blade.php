@@ -44,7 +44,11 @@
                                     <td>{{ $mascota->tipo }}</td>
                                     <td>{{ $mascota->sexo }}</td>
                                     <td>{{ $mascota->edad }}</td>
-                                    <td>{{ $mascota->vacunas }}</td>
+                                    <td>
+                                        @foreach($mascota->vacunas as $vacunas)
+                                            {{ $vacunas->vacunas }},
+                                        @endforeach
+                                    </td>
                                     <td>{{ $mascota->padecimientos }}</td>
                                     <td>{{ $mascota->user->name }}</td>
                                 </tr>

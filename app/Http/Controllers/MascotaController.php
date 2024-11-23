@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mascota;
+use App\Models\Vacuna;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -19,7 +20,7 @@ class MascotaController extends Controller implements HasMiddleware
     
     public function index()
     {
-        $mascotas = Mascota::all();
+        $mascotas = Mascota::with('vacunas')->with('user:id,name,email')->get();
         return view('mascotas.index-mascota', compact('mascotas'));
     }
     /**
@@ -27,7 +28,9 @@ class MascotaController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        return view('mascotas.create-mascota');
+        return view('mascotas.create-mascota', [
+        'vacunas'=>Vacuna::all(),
+        ]);
     }
     /**
      * Store a newly created resource in storage.
@@ -47,9 +50,10 @@ class MascotaController extends Controller implements HasMiddleware
             'user_id' => Auth::id(),
         ]);
 
-        //Auth::user()->mascotas()->create($request->all());
-
         $mascota = Mascota::create($request->all());
+        
+        $mascota->vacunas()->attach($request->vacunas);
+
         return redirect()->route('mascota.index');
     }
     /**

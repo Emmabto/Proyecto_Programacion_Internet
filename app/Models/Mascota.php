@@ -16,6 +16,6 @@ class Mascota extends Model
     }
     public function vacunas()
     {
-        return $this->belongsToMany(Vacuna::class);
+        return $this->belongsToMany(Vacuna::class, 'vacuna_mascota', 'mascota_id', 'vacuna_id');
     }
 }

@@ -78,8 +78,13 @@
 
                         <div class="mb-3">
                             <label for="vacunas" class="form-label">Vacunas:</label>
-                            <textarea name="vacunas" id="vacunas" class="form-control" cols="30" rows="3"
-                                placeholder="Lista de vacunas">{{ old('vacunas') }}</textarea>
+                            <select name="vacunas[]" id="vacunas" class="form-select" multiple>
+                                @foreach ($vacunas as $vacunas)
+                                <option value="{{ $vacunas->id }}">
+                                    {{ $vacunas->vacunas }}
+                                </option>
+                                @endforeach
+                            </select>
                             @error('vacunas')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

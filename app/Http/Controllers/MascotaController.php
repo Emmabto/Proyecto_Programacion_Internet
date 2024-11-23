@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class MascotaController extends Controller implements HasMiddleware
 {
@@ -17,7 +18,7 @@ class MascotaController extends Controller implements HasMiddleware
             new Middleware('auth', except: ['index', 'show']),
         ];
     }
-    
+
     public function index()
     {
         $mascotas = Mascota::with('vacunas')->with('user:id,name,email')->get();
@@ -29,7 +30,7 @@ class MascotaController extends Controller implements HasMiddleware
     public function create()
     {
         return view('mascotas.create-mascota', [
-        'vacunas'=>Vacuna::all(),
+            'vacunas' => Vacuna::all(),
         ]);
     }
     /**
@@ -51,7 +52,7 @@ class MascotaController extends Controller implements HasMiddleware
         ]);
 
         $mascota = Mascota::create($request->all());
-        
+
         $mascota->vacunas()->attach($request->vacunas);
 
         return redirect()->route('mascota.index');
@@ -68,6 +69,8 @@ class MascotaController extends Controller implements HasMiddleware
      */
     public function edit(Mascota $mascota)
     {
+        Gate::authorize('editar-mascota', $mascota);
+
         $vacunas = Vacuna::all();
         return view('mascotas.edit-mascota', compact('mascota', 'vacunas'));
     }
@@ -84,6 +87,8 @@ class MascotaController extends Controller implements HasMiddleware
             'vacunas' => 'required|array',
             'padecimientos' => 'required|string',
         ]);
+
+        Gate::authorize('editar-mascota', $mascota);
 
         $mascota->update($request->all());
         $mascota->vacunas()->sync($request->vacunas);

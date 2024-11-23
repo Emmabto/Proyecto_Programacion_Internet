@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Categoria;
+use App\Models\Mascota;
+use App\Models\Noticia;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,12 +16,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()
+            ->withPersonalTeam()
+            ->has(Mascota::factory()->count(5))
+            ->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+            ]);
 
         $this->call([
             VacunaSeeder::class,

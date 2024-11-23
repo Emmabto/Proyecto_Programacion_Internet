@@ -22,8 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('editar-mascota', function (User $user, Mascota $mascota) {
+        /*Gate::define('editar-mascota', function (User $user, Mascota $mascota) {
             return $user->id === $mascota->user_id;
-        });
+        });*/
     }
 }

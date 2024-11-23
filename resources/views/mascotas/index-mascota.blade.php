@@ -46,7 +46,7 @@
                                     <td>{{ $mascota->edad }}</td>
                                     <td>
                                         @foreach($mascota->vacunas as $vacunas)
-                                            {{ $vacunas->vacunas }},
+                                        {{ $vacunas->vacunas }},
                                         @endforeach
                                     </td>
                                     <td>{{ $mascota->padecimientos }}</td>

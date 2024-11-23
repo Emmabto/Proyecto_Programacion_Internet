@@ -69,7 +69,7 @@ class MascotaController extends Controller implements HasMiddleware
      */
     public function edit(Mascota $mascota)
     {
-        Gate::authorize('editar-mascota', $mascota);
+        Gate::authorize('update', $mascota);
 
         $vacunas = Vacuna::all();
         return view('mascotas.edit-mascota', compact('mascota', 'vacunas'));
@@ -88,7 +88,7 @@ class MascotaController extends Controller implements HasMiddleware
             'padecimientos' => 'required|string',
         ]);
 
-        Gate::authorize('editar-mascota', $mascota);
+        Gate::authorize('update', $mascota);
 
         $mascota->update($request->all());
         $mascota->vacunas()->sync($request->vacunas);

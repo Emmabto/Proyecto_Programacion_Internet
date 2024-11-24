@@ -17,7 +17,7 @@ class VacunaFactory extends Factory
     public function definition(): array
     {
         return [
-            'tag' => $this->faker->unique()->word(),
+            'vacunas' => $this->faker->unique()->word(),
         ];
     }
 }

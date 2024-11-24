@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             )
             ->create([
                 'name' => 'Test User',
-                'email' => 'test@example.com',
+                'email' => fake()->unique()->safeEmail(),
             ]);
 
         $this->call([

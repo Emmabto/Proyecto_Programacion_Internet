@@ -19,4 +19,4 @@ Route::middleware([
 
 
 Route::get('/descarga/{archivo}', [MascotaController::class, 'descargar'])->name('descargar');
-Route::resource('mascota', MascotaController::class)->parameters(['mascota' => 'mascota'])->middleware('auth');
+Route::resource('mascota', MascotaController::class)->parameters(['mascota' => 'mascota']);

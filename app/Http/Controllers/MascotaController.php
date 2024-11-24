@@ -123,6 +123,7 @@ class MascotaController extends Controller implements HasMiddleware
      */
     public function destroy(Mascota $mascota)
     {
+        Gate::authorize('delete', $mascota);
         $mascota->delete();
         return redirect()->route('mascota.index');
     }

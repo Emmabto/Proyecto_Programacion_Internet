@@ -50,11 +50,13 @@
                             <a href="{{ route('mascota.edit', $mascota) }}" class="btn btn-warning me-2">Editar</a>
                             @endcan
 
+                            @if ($mascota->user_id === auth()->id())
                             <form action="{{ route('mascota.destroy', $mascota) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Borrar</button>
                             </form>
+                            @endif
                         </div>
                     </div>
                 </div>

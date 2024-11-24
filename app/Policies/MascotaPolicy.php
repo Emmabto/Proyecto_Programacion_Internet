@@ -45,7 +45,7 @@ class MascotaPolicy
      */
     public function delete(User $user, Mascota $mascota): bool
     {
-        //
+        return $user->id === $mascota->user_id;
     }
 
     /**

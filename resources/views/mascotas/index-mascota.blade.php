@@ -14,50 +14,32 @@
     <!-- Header End -->
 
     <!-- Mostrar lista de mascotas -->
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="bg-light rounded p-4 shadow">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Tipo</th>
-                                    <th>Sexo</th>
-                                    <th>Edad</th>
-                                    <th>Vacunas</th>
-                                    <th>Padecimientos</th>
-                                    <th>Usuario</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($mascotas as $mascota)
-                                <tr>
-                                    <td>{{ $mascota->id }}</td>
-                                    <td>
-                                        <a href="{{ route('mascota.show', $mascota) }}">
-                                            {{ $mascota->nombre }}
-                                        </a>
-                                    </td>
-                                    <td>{{ $mascota->tipo }}</td>
-                                    <td>{{ $mascota->sexo }}</td>
-                                    <td>{{ $mascota->edad }}</td>
-                                    <td>
-                                        @foreach($mascota->vacunas as $vacunas)
-                                        {{ $vacunas->vacunas }},
-                                        @endforeach
-                                    </td>
-                                    <td>{{ $mascota->padecimientos }}</td>
-                                    <td>{{ $mascota->user->name }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+    <div class="container py-5">
+        <div class="row">
+            @foreach ($mascotas as $mascota)
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <!-- Imagen de la mascota -->
+                    @if ($mascota->archivos()->exists())
+                    <img src="{{ asset('storage/' . $mascota->archivos->first()->ruta) }}" class="card-img-top" alt="Imagen de la mascota" style="object-fit: contain; width: 100%; height: 200px;">
+                    @else
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Imagen de la mascota" style="object-fit: contain; width: 100%; height: 200px;">
+                    @endif
+                    <div class="card-body d-flex flex-column">
+                        <!-- Nombre de la mascota -->
+                        <h5 class="card-title">{{ $mascota->nombre }}</h5>
+                        <!-- Información adicional -->
+                        <p class="card-text flex-grow-1">
+                            <strong>Sexo:</strong> {{ $mascota->sexo }}<br>
+                            <strong>Edad:</strong> {{ $mascota->edad }}<br>
+                            <strong>Usuario:</strong> {{ $mascota->user->name }}
+                        </p>
+                        <!-- Botón para ver detalles -->
+                        <a href="{{ route('mascota.show', $mascota) }}" class="btn btn-primary">Ver más</a>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
     <!-- Mostrar lista de mascotas End -->

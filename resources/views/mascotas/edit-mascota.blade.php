@@ -27,10 +27,19 @@
                                 <label for="nombre" class="form-label">Nombre:</label>
                                 <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre') ?? $mascota->nombre }}">
                                 @error('nombre')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            
+
+                            <label for="archivo">Imagen</label><br>
+                            @if ($mascota->archivos()->exists())
+                            <div>
+                                <img src="{{ asset('storage/' . $mascota->archivos->first()->ruta) }}" alt="Imagen de la mascota" width="200">
+                            </div>
+                            @else
+                            <p>No hay imagen disponible</p>
+                            @endif
+
                             <div class="mb-3">
                                 <label for="tipo" class="form-label">Tipo de animal:</label>
                                 <select name="tipo" id="tipo" class="form-select">
@@ -42,25 +51,25 @@
                                     <option value="Pez" @selected($mascota->tipo == 'Pez')>Pez</option>
                                 </select>
                                 @error('tipo')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="sexo">Sexo:</label><br> 
+                                <label class="form-label" for="sexo">Sexo:</label><br>
                                 <div class="form-check form-check-inline">
-                                <input type="radio" id="macho" name="sexo" class="form-check-input" value="Macho" 
-                                    {{ old('sexo', $mascota->sexo) == 'Macho' ? 'checked' : '' }}>
-                                <label for="macho" class="form-check-label">Macho</label>
+                                    <input type="radio" id="macho" name="sexo" class="form-check-input" value="Macho"
+                                        {{ old('sexo', $mascota->sexo) == 'Macho' ? 'checked' : '' }}>
+                                    <label for="macho" class="form-check-label">Macho</label>
                                 </div>
-                                
+
                                 <div class="form-check form-check-inline">
-                                <input type="radio" id="hembra" name="sexo" class="form-check-input" value="Hembra" 
-                                    {{ old('sexo', $mascota->sexo) == 'Hembra' ? 'checked' : '' }}>
-                                <label for="hembra" class="form-check-label">Hembra</label>
+                                    <input type="radio" id="hembra" name="sexo" class="form-check-input" value="Hembra"
+                                        {{ old('sexo', $mascota->sexo) == 'Hembra' ? 'checked' : '' }}>
+                                    <label for="hembra" class="form-check-label">Hembra</label>
                                 </div>
                                 @error('sexo')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
@@ -76,12 +85,12 @@
                             <div class="mb-3">
                                 <label for="vacunas" class="form-label">Vacunas:</label>
                                 <select name="vacunas[]" id="vacunas" class="form-select" multiple>
-                                @foreach ($vacunas as $vacunas)
-                                <option @selected(in_array($vacunas->id, $mascota->vacunas()->pluck('vacunas.id')->toArray())) value="{{ $vacunas->id }}">
-                                    {{ $vacunas->vacunas }}
-                                </option>
-                                @endforeach
-                            </select>
+                                    @foreach ($vacunas as $vacunas)
+                                    <option @selected(in_array($vacunas->id, $mascota->vacunas()->pluck('vacunas.id')->toArray())) value="{{ $vacunas->id }}">
+                                        {{ $vacunas->vacunas }}
+                                    </option>
+                                    @endforeach
+                                </select>
                                 @error('vacunas')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

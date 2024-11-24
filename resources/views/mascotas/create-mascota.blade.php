@@ -33,7 +33,7 @@
                             @enderror
                         </div>
 
-                        <label for="archivo">Archivo:</label><br>
+                        <label for="archivo">Imagen</label><br>
                         <input type="file" name="archivo" id="imagen" accept="image/*"><br>
                         @error('archivo')
                         <div class="alert alert-danger">{{ $message }}</div>

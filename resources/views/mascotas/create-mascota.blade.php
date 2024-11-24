@@ -21,7 +21,7 @@
                 <div class="col-lg-6">
 
                     <!-- Aquí va el formulario -->
-                    <form action="{{ route('mascota.store') }}" method="POST" class="p-4 bg-light rounded shadow">
+                    <form action="{{ route('mascota.store') }}" method="POST" enctype='multipart/form-data' class="p-4 bg-light rounded shadow">
                         @csrf
 
                         <div class="mb-3">
@@ -32,6 +32,12 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
+                        <label for="archivo">Imagen</label><br>
+                        <input type="file" name="archivo" id="imagen" accept="image/*"><br>
+                        @error('archivo')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 
                         <div class="mb-3">
                             <label for="tipo" class="form-label">Tipo de animal:</label>
@@ -78,8 +84,13 @@
 
                         <div class="mb-3">
                             <label for="vacunas" class="form-label">Vacunas:</label>
-                            <textarea name="vacunas" id="vacunas" class="form-control" cols="30" rows="3"
-                                placeholder="Lista de vacunas">{{ old('vacunas') }}</textarea>
+                            <select name="vacunas[]" id="vacunas" class="form-select" multiple>
+                                @foreach ($vacunas as $vacunas)
+                                <option value="{{ $vacunas->id }}">
+                                    {{ $vacunas->vacunas }}
+                                </option>
+                                @endforeach
+                            </select>
                             @error('vacunas')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

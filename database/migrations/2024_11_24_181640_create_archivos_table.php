@@ -11,23 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mascotas', function (Blueprint $table) {
+        Schema::create('archivos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('tipo');
-            $table->string('sexo');
-            $table->string('edad');
-            $table->text('vacunas');
-            $table->text('padecimientos');
+            $table->foreignId('mascota_id')->constrained()->onDelete('cascade');
+            $table->string('nombre_original');
+            $table->string('ruta');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('mascotas');
+        Schema::dropIfExists('archivos');
     }
 };

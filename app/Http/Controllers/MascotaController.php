@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MascotaPublicada;
 use App\Models\Mascota;
 use App\Models\Vacuna;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class MascotaController extends Controller implements HasMiddleware
 {
@@ -54,6 +57,11 @@ class MascotaController extends Controller implements HasMiddleware
         $mascota = Mascota::create($request->all());
 
         $mascota->vacunas()->attach($request->vacunas);
+
+        $suscriptores = User::pluck('email');
+        foreach ($suscriptores as $suscriptor) {
+            Mail::to($suscriptor)->send(new MascotaPublicada($mascota));
+        }
 
         return redirect()->route('mascota.index');
     }

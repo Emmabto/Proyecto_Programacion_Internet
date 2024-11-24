@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\MascotaPublicada;
+use App\Models\Archivo;
 use App\Models\Mascota;
 use App\Models\Vacuna;
 use App\Models\User;
@@ -41,14 +42,23 @@ class MascotaController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => ['required', 'max:255'],
-            'tipo' => ['required'],
-            'sexo' => ['required'],
-            'edad' => ['required'],
-            'vacunas' => ['required'],
-            'padecimientos' => ['required'],
-        ]);
+        $request->validate(
+            [
+                'nombre' => ['required', 'max:255'],
+                'tipo' => ['required'],
+                'sexo' => ['required'],
+                'edad' => ['required'],
+                'vacunas' => ['required'],
+                'padecimientos' => ['required'],
+                'archivo' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:2048'], // Solo imágenes permitidas
+            ],
+            [
+                'archivo.required' => 'Por favor, sube una imagen antes de continuar.',
+                'archivo.image' => 'El archivo debe ser una imagen.',
+                'archivo.mimes' => 'Solo se permiten imágenes en formato JPG, JPEG o PNG.',
+                'archivo.max' => 'La imagen no debe superar los 2 MB.',
+            ]
+        );
 
         $request->merge([
             'user_id' => Auth::id(),
@@ -58,10 +68,16 @@ class MascotaController extends Controller implements HasMiddleware
 
         $mascota->vacunas()->attach($request->vacunas);
 
-        $suscriptores = User::pluck('email');
+        /* $suscriptores = User::pluck('email');
         foreach ($suscriptores as $suscriptor) {
             Mail::to($suscriptor)->send(new MascotaPublicada($mascota));
-        }
+        }*/
+        $ruta = $request->archivo->store('mis-archivos', 'public');
+        $archivo = new Archivo([
+            'nombre_original' => $request->archivo->getClientOriginalName(),
+            'ruta' => $ruta,
+        ]);
+        $mascota->archivos()->save($archivo);
 
         return redirect()->route('mascota.index');
     }
@@ -109,5 +125,10 @@ class MascotaController extends Controller implements HasMiddleware
     {
         $mascota->delete();
         return redirect()->route('mascota.index');
+    }
+
+    public function descargar(Archivo $archivo)
+    {
+        return response()->download(storage_path('app/public/' . $archivo->ruta));
     }
 }

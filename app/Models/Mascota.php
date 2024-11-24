@@ -21,4 +21,9 @@ class Mascota extends Model
     {
         return $this->belongsToMany(Vacuna::class, 'vacuna_mascota', 'mascota_id', 'vacuna_id');
     }
+
+    public function archivos()
+    {
+        return $this->hasMany(Archivo::class);
+    }
 }

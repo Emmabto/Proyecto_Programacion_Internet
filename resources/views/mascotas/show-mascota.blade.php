@@ -20,6 +20,21 @@
                 <div class="col-lg-8">
                     <div class="bg-light rounded p-4 shadow">
                         <h2 class="mb-3">Detalles de la Mascota</h2>
+
+                        <hr>
+                        @foreach ($mascota->archivos as $archivo)
+                        <img src="{{ asset('/storage/'.$archivo->ruta) }}" alt="prueba" width="400">
+                        @endforeach
+                        @foreach ($mascota->archivos as $archivo)
+                        <li>
+                            <a href="{{ route('descargar', $archivo) }}">
+                                Descargar imagen
+                            </a>
+                        </li>
+                        @endforeach
+
+                        <hr>
+
                         <p><strong>Nombre:</strong> {{ $mascota->nombre }}</p>
                         <p><strong>Tipo de animal:</strong> {{ $mascota->tipo }}</p>
                         <p><strong>Sexo:</strong> {{ $mascota->sexo }}</p>

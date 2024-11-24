@@ -21,11 +21,7 @@ class DatabaseSeeder extends Seeder
         User::factory()
             ->withPersonalTeam()
             ->has(
-                Mascota::factory()
-                    ->has(
-                        Vacuna::factory()->count(3)
-                    )
-                    ->count(5)
+                Mascota::factory()->count(5)
             )
             ->create([
                 'name' => 'Test User',

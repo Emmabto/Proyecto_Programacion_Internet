@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('vacunas');
             $table->text('padecimientos');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
     /**
